@@ -4,8 +4,9 @@ import java.util.HashMap;
  * Zijian Ju 1006948
  * Hall class to monitor the status of knights and the King Arthur
  * It is responsible for :
- * -- Whether King Arthur is in the hall
- * -- Whether the knights in the hall are seated
+ * -- Allow King Arthur and Knights enter and exit the great Hall
+ * -- Allow knight seat and stand
+ * -- Allow King start and end meetingkn
  * 
  * @author zijian Ju(1006948) Zijianj@student.unimelb.edu.au
  *

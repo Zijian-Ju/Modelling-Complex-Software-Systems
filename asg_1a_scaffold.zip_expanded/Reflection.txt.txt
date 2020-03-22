@@ -1,0 +1,27 @@
+Zijian Ju 1006948
+Overview
+
+Overall the system is simulated successfully. Knights, King Arthur, Producer and Consumer can work concurrently with monitor Hall and Agenda. 
+
+Monitors
+
+There are two monitors(Hall and Agenda) to monitor the multi-threads process.
+
+Hall holds two boolean value isKingHere and isMeeting to show whether the Knight can access and Hall or accomplish their job on the Round Table meeting. The King can change the value by accessing the built-in method after entering the Hall, and Knight can view it when intending to enter or exit. As Knight may check the value while King Arthur is modifying it, the methods related to this should be synchronized, which is, only one thread can access the value to avoid the Knight can still enter the Hall after the King has entered the Hall but not yet change the value. The logic is the same for isMeeting. The Knight will call wait() when trying to enter the Hall but the King is there and wake up after king leaves and call notifyAll().
+
+Otherwise, a HashMap< Knight, boolean> is to capture which Knight is in the Hall and whether he is seated. Same logic as before that only one thread can access or modify the value by wrapped with the synchronized method. When the King tries to start the meeting, he must check whether all Knights have been seated. If not, the King thread will pause until one Knight notifies him after seated. The King will repeat the same operation until all Knights have been seated.
+
+The Agenda monitor captures operations related to the quest. Knight can acquire new quest and release completed the quest on Agenda by calling built-in method. The logic of implementation is similar to Hall. To avoid multiple Knights getting the same quest or acquiring quest when the Producer is creating quest, the methods are synchronized to ensure all the operation related to quest is a critical protocol. For example, the Producer will wait if the number of quests is over the max capacity  and wake up when a knight acquire a quest and notify it. The Knight will wait if there is no quest on Agenda until the Producer produces one and notify him.
+
+Knight and King Arthur
+
+Knight and King Arthur are the threads work concurrently. Both of them can enter and exit by calling the method in Hall class, and update their status in Hall. In my implementation, they do not interact directly. Their actions and status rely on the status stored in Hall class and Agenda as mentioned above. Otherwise, Knight can discuss with others complete quest by sleep the thread for a while. The King will also sleep before the next time entering the Hall.
+
+Problems Occurred
+At first, I set the Producer will wait when there is one quest on Agenda. After Knight acquiring a quest, the program is locked as I did not put notify in to notify the Producer to continue producing quest. The other Knights are also locked as there is no quest on Agenda. Similarly, the Knight should be notified after the Producer produced a quest. This situation also happened for releasing quest, which is solved by notifying all thread after their operations.
+
+
+ 
+
+
+
