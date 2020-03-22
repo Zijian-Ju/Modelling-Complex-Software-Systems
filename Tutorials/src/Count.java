@@ -24,24 +24,27 @@ class Count extends Thread {
       }
     }
 
-    public static void excute() {
+    public static int excute() {
         Count p = new Count();
         Count q = new Count();
+        int temp = 0;
         p.start();
         q.start();
         try { p.join(); q.join(); }
         catch (InterruptedException e) { }
-       
-        if(counter!= 2000) {
-        	System.out.println("hithere");
-        	System.out.println("The final value of the counter is " + counter);
-        }
+ 
+        temp = counter;
         counter = 0;
+        return temp;
     }
     public static void main(String[] args) {
-    	for(int i = 0; i<100000 ;i++) {
-    		excute();
+    	int count = 0;
+    	for(int i = 0; i<100 ;i++) {
+    		if (excute() == 2000) {count ++;
+    		
+    		}
     	}
+    	System.out.println(count);
 
     }
 }
