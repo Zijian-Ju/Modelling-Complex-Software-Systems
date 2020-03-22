@@ -3,13 +3,13 @@ import java.util.Queue;
 
 /**
  * The agenda class for handling quests in meeting
- * 
- * @author Zijian Ju zijianj@student.unimelb.edu.au
+ * Assume only one quest can be listed on Agenda at a time
+ * @author Zijian Ju 1006948 zijianj@student.unimelb.edu.au
  *
  */
 public class Agenda {
-	//The capacity of new agenda for holding quest.
-	// Assume there is only one request on agenda at a time
+	//The capacity of agenda for holding quest.
+	// Assume there is only one quest on agenda at a time
 	public static int MAX_CAPACITY = 1;
 	
 	//List of quests on Agenda
@@ -39,6 +39,7 @@ public class Agenda {
 	
 	//remove the first completed quest on list.
 	public synchronized void removeComplete() {
+		//Pause the consumer thread when there is no quest on the agenda
 		while(quests.isEmpty()) {
 			try {
 				wait();
@@ -68,6 +69,12 @@ public class Agenda {
 	
 	//Release a quest, only one knight can release his quest for a time
 	public synchronized void release(Knight knight) {
+		while(quests.size() >= MAX_CAPACITY) {
+			try {
+				wait();
+			}
+			catch(InterruptedException e) {}		
+		}
 		quests.add(knight.getQuest());
 		System.out.format("%s releases %s.\n", knight.toString(), knight.getQuest().toString());
 		notifyAll();

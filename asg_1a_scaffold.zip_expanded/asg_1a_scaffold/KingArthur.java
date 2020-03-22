@@ -1,5 +1,6 @@
 
 /**
+ * Zijian Ju 1006948
  * KingArthur class which is responsible for hosting the Round table meeting 
  * and distributing quests to knights
  * 

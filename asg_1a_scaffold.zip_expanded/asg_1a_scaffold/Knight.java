@@ -1,8 +1,9 @@
 
 /**
+ * Zijian Ju 1006948
  * Knight class which can participate the Round Table meeting in the Great Hall and complete quests
  * 
- * @author zijian Ju 1006948 Zijianj@student.unimelb.edu.au
+ * @author Zijianj@student.unimelb.edu.au
  *
  */
 public class Knight extends Thread{

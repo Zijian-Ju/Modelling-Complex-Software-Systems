@@ -1,6 +1,7 @@
 import java.util.HashMap;
 
 /**
+ * Zijian Ju 1006948
  * Hall class to monitor the status of knights and the King Arthur
  * It is responsible for :
  * -- Whether King Arthur is in the hall

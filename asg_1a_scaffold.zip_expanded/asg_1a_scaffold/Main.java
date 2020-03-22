@@ -1,4 +1,5 @@
 /**
+ * Zijian Ju 1006948
  * The top-level component of the questing knights simulator.
  *
  * It is responsible for:
